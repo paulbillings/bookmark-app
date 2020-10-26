@@ -37,6 +37,8 @@ function validate(nameValue, urlValue) {
 
 // build bookmarks DOM
 function buildBookmarks() {
+  // remove all boomark elements
+  bookmarksContainer.textContent = '';
   // build items
   bookmarks.forEach((bookmark) => {
     const { name, url } = bookmark;
@@ -83,6 +85,18 @@ function fetchBookmarks() {
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   }
   buildBookmarks();
+}
+
+// Delete bookmark
+function deleteBookmark(url) {
+  bookmarks.forEach((bookmark, i) => {
+    if (bookmark.url === url) {
+      bookmarks.splice(i, 1);
+    }
+  });
+  // update bookmarks array in localStorage, repopulate DOM
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  fetchBookmarks();
 }
 
 // handle data from form
